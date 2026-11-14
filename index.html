@@ -1,0 +1,1058 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Portfolio of Shanmukh Sai Venkat Pinchingula, Java Full Stack Developer: Spring Boot, microservices, React and Docker.">
+<title>Shanmukh Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<script>
+try { var t = localStorage.getItem("portfolio-theme"); if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+</script>
+<style>
+/* Layout: one narrow column; hero pairs the name with the request path of the microservices project; sections use a label column plus content column. */
+:root {
+  --bg: #f2f4f7;
+  --surface: #ffffff;
+  --fg: #0f1722;
+  --muted: #55606f;
+  --line: #d5dae2;
+  --accent: #2748e8;
+  --accent-soft: #e3e8fd;
+  --ok: #17803d;
+  --term-bg: #0d131c;
+  --term-fg: #d6deea;
+  --term-dim: #8391a5;
+  --term-line: #212d3f;
+  --term-acc: #8aa6ff;
+  --term-ok: #6fd49a;
+  --on-accent: #ffffff;
+  --display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1118; --surface: #131a24; --fg: #e8edf4; --muted: #94a0b2; --line: #263143;
+    --accent: #8aa6ff; --accent-soft: #1a2542; --on-accent: #0c1118; --ok: #4cc38a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1118; --surface: #131a24; --fg: #e8edf4; --muted: #94a0b2; --line: #263143;
+  --accent: #8aa6ff; --accent-soft: #1a2542; --on-accent: #0c1118; --ok: #4cc38a; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.65;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1040px; margin: 0 auto; }
+button { font: inherit; color: inherit; cursor: pointer; }
+
+/* header */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 10; }
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: var(--bg); border-bottom: 1px solid var(--line); }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; padding: 12px 0; flex-wrap: wrap; }
+.brand { font-family: var(--mono); font-size: 14px; text-decoration: none; letter-spacing: 0.02em; }
+.brand b { color: var(--accent); font-weight: 500; }
+.head-right { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+nav { display: flex; gap: 18px; flex-wrap: wrap; }
+nav a { font-size: 14px; color: var(--muted); text-decoration: none; }
+nav a:hover { color: var(--fg); }
+.theme { font-family: var(--mono); font-size: 12px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+.theme:hover { border-color: var(--accent); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; align-items: center; padding-block: 72px 64px; }
+.eyebrow { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 18px; }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(3rem, 9vw, 5.6rem); line-height: 0.98; letter-spacing: -0.035em; margin: 0 0 12px; text-wrap: balance; }
+.fullname { font-family: var(--mono); font-size: 13px; color: var(--muted); margin: 0 0 22px; }
+.lede { font-size: 1.1875rem; color: var(--muted); max-width: 34em; margin: 0 0 30px; }
+.lede strong { color: var(--fg); font-weight: 600; }
+.actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 6px; font-weight: 600; font-size: 15px; text-decoration: none; border: 1px solid var(--line); background: var(--surface); }
+.btn.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.btn:hover { border-color: var(--accent); }
+
+.flow { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px 18px 14px; min-width: 0; margin: 0; }
+.flow svg { width: 100%; height: auto; display: block; }
+.flow figcaption { font-family: var(--mono); font-size: 12px; color: var(--muted); padding-top: 10px; border-top: 1px dashed var(--line); margin-top: 6px; }
+.n rect { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+.n.hot rect { fill: var(--accent-soft); stroke: var(--accent); }
+.n text { fill: var(--fg); font-family: var(--mono); font-size: 13px; text-anchor: middle; }
+.n .sub { fill: var(--muted); font-size: 10.5px; }
+.edge { stroke: var(--muted); stroke-width: 1.5; fill: none; }
+.edge.live { stroke: var(--accent); stroke-dasharray: 5 5; animation: dash 1.2s linear infinite; }
+.edge.reg { stroke-dasharray: 2 4; }
+@keyframes dash { to { stroke-dashoffset: -20; } }
+.arrow { fill: var(--accent); }
+
+/* sections */
+section { padding-block: 56px; border-top: 1px solid var(--line); scroll-margin-top: 70px; }
+.sec-head { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; margin-bottom: 32px; }
+h2 { font-family: var(--display); font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin: 0; text-wrap: balance; }
+.sec-head > .label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 8px; }
+
+/* project filter */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 30px; }
+.filters button { font-family: var(--mono); font-size: 12.5px; padding: 5px 13px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
+.filters button:hover { border-color: var(--accent); }
+.filters button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.filters .count { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-left: 6px; }
+
+/* projects */
+.project { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; padding-block: 28px; border-top: 1px solid var(--line); scroll-margin-top: 80px; }
+.project.first-visible { border-top: 0; padding-top: 0; }
+.project .meta { font-family: var(--mono); font-size: 12.5px; color: var(--muted); display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.status { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11.5px; border: 1px solid var(--line); color: var(--muted); }
+.status.wip { border-color: var(--accent); color: var(--accent); }
+.project h3 { font-family: var(--display); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.015em; line-height: 1.2; margin: 0 0 8px; }
+.project p { margin: 0 0 14px; color: var(--muted); max-width: 40em; }
+.chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0 0 14px; }
+.chips li { font-family: var(--mono); font-size: 12.5px; padding: 3px 10px; border-radius: 4px; background: var(--accent-soft); color: var(--fg); }
+.project a.link { font-weight: 600; font-size: 14.5px; color: var(--accent); text-underline-offset: 4px; }
+.project code { font-family: var(--mono); font-size: 0.9em; }
+
+details.dive { margin: 0 0 16px; max-width: 42em; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+details.dive summary { list-style: none; cursor: pointer; padding: 10px 14px; font-family: var(--mono); font-size: 13px; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+details.dive summary::-webkit-details-marker { display: none; }
+details.dive summary::after { content: "+"; color: var(--accent); font-size: 16px; line-height: 1; }
+details.dive[open] summary::after { content: "\2212"; }
+details.dive[open] summary { border-bottom: 1px solid var(--line); }
+details.dive ul { margin: 0; padding: 14px 16px 14px 32px; display: flex; flex-direction: column; gap: 8px; color: var(--muted); font-size: 15px; }
+details.dive li strong { color: var(--fg); font-weight: 600; }
+
+/* skills */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; }
+.skills h3 { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; font-weight: 500; }
+.skills ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.skills li { font-size: 15.5px; line-height: 1.4; }
+.skills li .used { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
+.skills li .used a { color: var(--accent); text-underline-offset: 3px; }
+.also { margin: 28px 0 0; font-size: 14.5px; color: var(--muted); }
+
+/* timeline */
+.timeline { list-style: none; margin: 0; padding: 0 0 0 26px; border-left: 2px solid var(--line); display: flex; flex-direction: column; gap: 30px; }
+.timeline li { position: relative; }
+.timeline li::before { content: ""; position: absolute; left: -34px; top: 7px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--muted); }
+.timeline li.now::before { background: var(--accent); border-color: var(--accent); }
+.timeline .when { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+.timeline h3 { margin: 2px 0 0; font-size: 1.125rem; font-weight: 600; line-height: 1.35; }
+.timeline .org { color: var(--muted); font-size: 15px; margin: 0; }
+.timeline ul { margin: 10px 0 0; padding-left: 20px; color: var(--muted); font-size: 15px; display: flex; flex-direction: column; gap: 6px; max-width: 42em; }
+
+/* resume */
+.resume-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; }
+.resume-grid h3 { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin: 0 0 12px; }
+.resume-grid p { margin: 0 0 22px; max-width: 38em; }
+.certs { list-style: none; margin: 0 0 22px; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.certs li { font-size: 15.5px; line-height: 1.4; }
+.certs li span { display: block; color: var(--muted); font-size: 13.5px; }
+.target { padding: 16px 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); font-size: 15px; }
+.target b { color: var(--accent); font-weight: 600; }
+
+/* contact */
+.contact-box { display: flex; flex-direction: column; gap: 14px; margin-top: 20px; }
+.email-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.email-row code { font-family: var(--mono); font-size: 15px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); user-select: all; overflow-wrap: anywhere; }
+.copy { font-family: var(--mono); font-size: 12.5px; padding: 8px 14px; border: 1px solid var(--accent); border-radius: 6px; background: var(--accent); color: var(--on-accent); }
+.copy.done { background: var(--surface); color: var(--accent); }
+.contact-links { display: flex; flex-direction: column; gap: 8px; }
+.contact-links a { font-family: var(--mono); font-size: 15px; text-underline-offset: 4px; width: fit-content; }
+footer { padding-top: 32px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+
+/* badge + stats */
+.badge-row { margin: 0 0 18px; }
+.badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); animation: blink 2.2s ease-in-out infinite; }
+@keyframes blink { 50% { opacity: 0.35; } }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin-bottom: 56px; }
+.stat { background: var(--surface); padding: 18px 20px; }
+.stat b { display: block; font-family: var(--display); font-size: 2.1rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em; color: var(--accent); margin-bottom: 6px; }
+.stat span { font-size: 13.5px; color: var(--muted); line-height: 1.35; display: block; }
+nav a.cta { color: var(--accent); font-weight: 600; }
+
+/* shared form controls */
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field label, .lbl { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--muted); }
+.field input, .field select, .field textarea {
+  width: 100%; font: inherit; font-size: 15px; color: var(--fg); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 6px; padding: 9px 12px; min-width: 0;
+}
+.field textarea { font-family: var(--mono); font-size: 13px; line-height: 1.55; resize: vertical; min-height: 220px; }
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.hint { font-size: 13px; color: var(--muted); }
+
+/* under the hood */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+.tabs button { font-family: var(--mono); font-size: 12.5px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
+.tabs button:hover { border-color: var(--accent); }
+.tabs button[aria-selected="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.how-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+.steps { list-style: none; counter-reset: step; margin: 0; padding: 0; }
+.steps li { counter-increment: step; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 14px; padding: 14px 0; border-top: 1px solid var(--line); }
+.steps li:first-child { border-top: 0; padding-top: 0; }
+.steps li::before { content: counter(step); width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--accent); color: var(--accent); display: grid; place-items: center; font-family: var(--mono); font-size: 12.5px; }
+.steps strong { display: block; font-weight: 600; }
+.steps p { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
+.why { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 20px; }
+.why h3 { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin: 0 0 12px; }
+.why p { margin: 0 0 12px; color: var(--muted); font-size: 15px; }
+.why a { color: var(--accent); font-weight: 600; font-size: 14.5px; text-underline-offset: 4px; }
+
+/* fit check */
+.fit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+.fit-out { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 22px; min-width: 0; }
+.score-row { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; }
+.score { font-family: var(--display); font-size: 3.2rem; font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: var(--accent); min-width: 2.2em; font-variant-numeric: tabular-nums; }
+.score-row > div { flex: 1; min-width: 0; }
+.score-row b { display: block; font-weight: 600; margin-bottom: 4px; }
+.score-row small { display: block; color: var(--muted); font-size: 13.5px; margin-bottom: 8px; line-height: 1.4; }
+.meter { height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.meter i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.4s ease; }
+.fit-out h3 { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin: 18px 0 10px; }
+.fit-out .chips { margin: 0; }
+.chips li.miss { background: transparent; border: 1px dashed var(--muted); color: var(--muted); }
+.chips li.none { background: transparent; color: var(--muted); padding-left: 0; font-family: var(--body); font-size: 14px; }
+
+/* terminal */
+.term { background: var(--term-bg); color: var(--term-fg); border: 1px solid var(--line); border-radius: 10px; font-family: var(--mono); font-size: 13.5px; overflow: hidden; }
+.term-bar { padding: 10px 16px; border-bottom: 1px solid var(--term-line); color: var(--term-dim); font-size: 12px; }
+.term-out { padding: 14px 16px; height: 320px; overflow: auto; line-height: 1.65; }
+.term-out .ln { white-space: pre-wrap; overflow-wrap: anywhere; min-height: 1.65em; }
+.term-out .cmd { color: var(--term-ok); }
+.term-out .dim { color: var(--term-dim); }
+.term-out .hl { color: var(--term-acc); }
+.term-out a { color: var(--term-acc); text-underline-offset: 3px; }
+.term-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px 14px; }
+.tchip { font-family: var(--mono); font-size: 12px; padding: 3px 11px; border-radius: 999px; border: 1px solid var(--term-line); background: transparent; color: var(--term-fg); }
+.tchip:hover { border-color: var(--term-acc); color: var(--term-acc); }
+.term-in { display: flex; align-items: center; gap: 10px; padding: 11px 16px; border-top: 1px solid var(--term-line); }
+.term-in:focus-within { box-shadow: inset 0 0 0 1px var(--term-acc); }
+.term-in label { color: var(--term-ok); }
+.term-in input { flex: 1; min-width: 0; background: transparent; border: 0; color: var(--term-fg); font: inherit; outline: none; }
+
+/* interview Q&A */
+.qa { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; align-items: start; }
+details.qcard { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); min-width: 0; }
+details.qcard summary { list-style: none; cursor: pointer; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; position: relative; padding-right: 44px; }
+details.qcard summary::-webkit-details-marker { display: none; }
+details.qcard summary::after { content: "+"; position: absolute; right: 18px; top: 14px; color: var(--accent); font-size: 20px; line-height: 1; }
+details.qcard[open] summary::after { content: "\2212"; }
+details.qcard:hover { border-color: var(--accent); }
+.qtag { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+.qq { font-family: var(--display); font-weight: 700; font-size: 1.1rem; line-height: 1.3; letter-spacing: -0.01em; }
+.qa-body { padding: 0 18px 18px; color: var(--muted); font-size: 15px; border-top: 1px solid var(--line); padding-top: 14px; margin: 0 18px 0; padding-left: 0; padding-right: 0; padding-bottom: 18px; }
+.qa-body p { margin: 0; }
+
+/* schedule */
+.sched { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.form-grid .wide { grid-column: 1 / -1; }
+.panel { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 20px; min-width: 0; }
+.panel h3 { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin: 0 0 12px; }
+.avail { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.avail span { font-family: var(--mono); font-size: 12px; padding: 3px 10px; border-radius: 4px; background: var(--accent-soft); }
+.avail span.off { background: transparent; border: 1px dashed var(--line); color: var(--muted); }
+.avail-line { margin: 0 0 4px; font-size: 15px; }
+.avail-sub { margin: 0; color: var(--muted); font-size: 13.5px; }
+.checkline { margin: 14px 0 0; padding: 10px 12px; border-radius: 6px; font-size: 14px; background: var(--accent-soft); }
+.checkline.warn { background: transparent; border: 1px dashed var(--muted); color: var(--muted); }
+.msg { white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--mono); font-size: 13px; line-height: 1.6; margin: 0 0 14px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); user-select: all; }
+.msg-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.msg-actions .copy { padding: 8px 14px; }
+.msg-actions a { font-size: 14px; color: var(--accent); text-underline-offset: 4px; }
+.msg-note { margin: 12px 0 0; font-size: 13px; color: var(--muted); }
+
+@media (max-width: 820px) {
+  .how-grid, .fit, .sched { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .form-grid { grid-template-columns: minmax(0, 1fr); }
+  .stats { margin-bottom: 40px; }
+  header.top { position: static; }
+  section { scroll-margin-top: 16px; }
+  .term-out { height: 280px; }
+}
+
+@media (max-width: 820px) {
+  .hero { grid-template-columns: minmax(0, 1fr); gap: 36px; padding-block: 44px 40px; }
+  .sec-head, .project, .resume-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .resume-grid { gap: 28px; }
+  .sec-head > .label { padding-top: 0; }
+  section { padding-block: 40px; }
+  .project .meta { flex-direction: row; flex-wrap: wrap; gap: 10px; align-items: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .edge.live { animation: none; }
+  .dot { animation: none; }
+  .meter i { transition: none; }
+}
+</style>
+<style>[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">shanmukh<b>.dev</b></a>
+    <div class="head-right">
+      <nav aria-label="Sections">
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#fit">Fit check</a>
+        <a href="#qa">Q&amp;A</a>
+        <a href="#timeline">Timeline</a>
+        <a class="cta" href="#schedule">Schedule</a>
+      </nav>
+      <button class="theme" id="theme-btn" type="button" aria-label="Switch between light and dark theme">Dark</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <div class="hero">
+    <div>
+      <p class="badge-row"><span class="badge"><span class="dot" aria-hidden="true"></span>Open to work · Junior and Associate roles</span></p>
+      <p class="eyebrow">Java Full Stack Developer</p>
+      <h1>Shanmukh</h1>
+      <p class="fullname">Shanmukh Sai Venkat Pinchingula</p>
+      <p class="lede">I build <strong>RESTful APIs and microservices</strong> with Java, Spring Boot, Spring Data JPA and Hibernate, then connect them to React front ends and MySQL or PostgreSQL. I package everything with Docker. I'm looking for a <strong>Junior or Associate Full Stack / Java Developer</strong> role.</p>
+      <div class="actions">
+        <a class="btn primary" href="#schedule">Schedule an interview</a>
+        <a class="btn" href="#projects">See projects</a>
+        <a class="btn" href="https://github.com/Shanmukh1817" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://leetcode.com/shanmukh1817/" target="_blank" rel="noopener">LeetCode</a>
+      </div>
+    </div>
+
+    <figure class="flow">
+      <svg viewBox="0 0 360 290" role="img" aria-label="Request path in the e-commerce microservices project: a client calls the API gateway, which uses the Eureka registry to reach the product and order services. The order service calls the product service through OpenFeign.">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow" d="M0 0 L10 5 L0 10 z"/></marker>
+        </defs>
+        <g class="n"><rect x="115" y="8" width="130" height="40" rx="6"/><text x="180" y="32">Client</text></g>
+        <path class="edge live" d="M180 48 V90" marker-end="url(#ah)"/>
+        <g class="n hot"><rect x="95" y="92" width="170" height="52" rx="6"/><text x="180" y="115">Spring Cloud Gateway</text><text class="sub" x="180" y="132">routes requests</text></g>
+        <g class="n"><rect x="278" y="92" width="76" height="52" rx="6"/><text x="316" y="115">Eureka</text><text class="sub" x="316" y="132">registry</text></g>
+        <path class="edge reg" d="M265 118 H276" marker-end="url(#ah)"/>
+        <path class="edge live" d="M140 144 V196" marker-end="url(#ah)"/>
+        <path class="edge live" d="M220 144 V196" marker-end="url(#ah)"/>
+        <g class="n"><rect x="60" y="198" width="120" height="52" rx="6"/><text x="120" y="221">Product</text><text class="sub" x="120" y="238">Spring Boot</text></g>
+        <g class="n"><rect x="190" y="198" width="120" height="52" rx="6"/><text x="250" y="221">Order</text><text class="sub" x="250" y="238">Spring Boot</text></g>
+        <path class="edge" d="M190 224 H182" marker-end="url(#ah)"/>
+        <text x="180" y="274" text-anchor="middle" style="fill: var(--muted); font-family: var(--mono); font-size: 10.5px;">Order checks stock and price via OpenFeign</text>
+      </svg>
+      <figcaption>Request path in my e-commerce microservices project</figcaption>
+    </figure>
+  </div>
+
+  <div class="stats" aria-label="At a glance">
+    <div class="stat"><b>3</b><span>full projects, each with a GitHub repo</span></div>
+    <div class="stat"><b>4</b><span>independent Spring Boot services in the microservices build</span></div>
+    <div class="stat"><b>2</b><span>internships: software and communication systems</span></div>
+    <div class="stat"><b>2</b><span>access roles enforced with Spring Security</span></div>
+  </div>
+
+  <section id="projects">
+    <div class="sec-head">
+      <div class="label">Selected work</div>
+      <h2>Projects</h2>
+    </div>
+
+    <div class="filters" role="group" aria-label="Filter projects by technology">
+      <button type="button" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" data-filter="spring" aria-pressed="false">Spring Boot</button>
+      <button type="button" data-filter="micro" aria-pressed="false">Microservices</button>
+      <button type="button" data-filter="react" aria-pressed="false">React</button>
+      <button type="button" data-filter="security" aria-pressed="false">Security</button>
+      <button type="button" data-filter="docker" aria-pressed="false">Docker</button>
+      <button type="button" data-filter="db" aria-pressed="false">Databases</button>
+      <span class="count" id="filter-count" aria-live="polite"></span>
+    </div>
+
+    <article class="project" id="p-ecom" data-tags="spring micro docker">
+      <div class="meta"><span class="status">Complete</span><span>Microservices</span></div>
+      <div>
+        <h3>E-Commerce Microservices Platform</h3>
+        <p>An e-commerce backend made of four independently deployable Spring Boot services: service registry, API gateway, product and order. Netflix Eureka handles discovery and Spring Cloud Gateway routes every request from one entry point.</p>
+        <ul class="chips"><li>Java</li><li>Spring Boot</li><li>Spring Cloud</li><li>Eureka</li><li>OpenFeign</li><li>Docker</li></ul>
+        <details class="dive">
+          <summary>Architecture and decisions</summary>
+          <ul>
+            <li><strong>Split by responsibility.</strong> Registry, gateway, product and order run as separate services, so each can be deployed on its own.</li>
+            <li><strong>One front door.</strong> Spring Cloud Gateway gives clients a single address and centralises routing.</li>
+            <li><strong>Service-to-service calls.</strong> The order service calls the product service through OpenFeign to validate stock and pricing.</li>
+            <li><strong>Layered code.</strong> Each service uses controller, service and repository layers with centralised exception handling, on Spring Data JPA and Hibernate.</li>
+            <li><strong>Build.</strong> One multi-module Maven project.</li>
+          </ul>
+        </details>
+        <a class="link" href="https://github.com/Shanmukh1817" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+    </article>
+
+    <article class="project" id="p-scm" data-tags="spring security docker db">
+      <div class="meta"><span class="status">Complete</span><span>Secured REST API</span></div>
+      <div>
+        <h3>Student Course Management System</h3>
+        <p>A full-stack REST API that manages student registrations, courses, enrollments and grades. Spring Security enforces ADMIN and STUDENT roles, and the app is deployed on a free-tier Render host with Docker Compose.</p>
+        <ul class="chips"><li>Spring Boot</li><li>Spring Security</li><li>Hibernate</li><li>MySQL</li><li>Docker</li><li>Swagger</li><li>JUnit</li></ul>
+        <details class="dive">
+          <summary>Architecture and decisions</summary>
+          <ul>
+            <li><strong>Layered design.</strong> Controller, service and repository layers keep web, business and data code apart.</li>
+            <li><strong>Data model.</strong> Spring Data JPA and Hibernate model one-to-many and many-to-many relationships between students, courses and enrollments, with schema generation and ORM mapping to MySQL.</li>
+            <li><strong>Access control.</strong> Spring Security with ADMIN and STUDENT roles. Inputs are checked with Bean Validation and the API is documented in Swagger.</li>
+            <li><strong>Deployment.</strong> A multi-stage Dockerfile and Docker Compose, deployed to Render.</li>
+            <li><strong>Testing.</strong> Repository layer tests written with <code>@DataJpaTest</code>.</li>
+          </ul>
+        </details>
+        <a class="link" href="https://github.com/Shanmukh1817/student-course-management" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+    </article>
+
+    <article class="project" id="p-taskflow" data-tags="spring react security docker db">
+      <div class="meta"><span class="status">Complete</span><span>Full stack</span></div>
+      <div>
+        <h3>TaskFlow: Task Management Platform</h3>
+        <p>A task and project management app. A Spring Boot REST API with stateless JWT authentication serves a React (Vite) front end that shows tasks on a Kanban board.</p>
+        <ul class="chips"><li>Spring Boot</li><li>Spring Security</li><li>JWT</li><li>React</li><li>Vite</li><li>MySQL</li><li>Docker Compose</li></ul>
+        <details class="dive">
+          <summary>Architecture and decisions</summary>
+          <ul>
+            <li><strong>Stateless auth.</strong> Spring Security with JWT, and BCrypt for password hashing.</li>
+            <li><strong>Ownership checks.</strong> User, Project and Task models in Spring Data JPA and Hibernate, with per-user ownership checks so people only reach their own data.</li>
+            <li><strong>Front end.</strong> A React (Vite) Kanban board that calls the API with Axios and guards pages with protected routes.</li>
+            <li><strong>Packaging.</strong> The stack runs together with Docker Compose.</li>
+          </ul>
+        </details>
+        <a class="link" href="https://github.com/Shanmukh1817" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+    </article>
+
+
+  </section>
+
+  <section id="how">
+    <div class="sec-head">
+      <div class="label">Under the hood</div>
+      <h2>How my projects work, step by step</h2>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Project walkthroughs">
+      <button type="button" role="tab" id="tab-gw" aria-controls="panel-gw" aria-selected="true" data-tab="gw">Gateway request</button>
+      <button type="button" role="tab" id="tab-jwt" aria-controls="panel-jwt" aria-selected="false" data-tab="jwt">JWT login</button>
+      <button type="button" role="tab" id="tab-layers" aria-controls="panel-layers" aria-selected="false" data-tab="layers">Layered backend</button>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="panel-gw" aria-labelledby="tab-gw">
+      <div class="how-grid">
+        <ol class="steps">
+          <li><div><strong>Client calls the gateway</strong><p>Every request enters through Spring Cloud Gateway, so clients know one address.</p></div></li>
+          <li><div><strong>Gateway finds the service</strong><p>Services register with the Netflix Eureka registry, and the gateway uses it to discover where they run.</p></div></li>
+          <li><div><strong>Request reaches the order service</strong><p>The gateway routes it to the right Spring Boot service, which handles it in its controller, service and repository layers.</p></div></li>
+          <li><div><strong>Order calls product over OpenFeign</strong><p>The order service validates stock and pricing by calling the product service through an OpenFeign client.</p></div></li>
+          <li><div><strong>Response returns the same way</strong><p>Errors are handled in one place, so a failed check comes back as a clear error response.</p></div></li>
+        </ol>
+        <aside class="why">
+          <h3>Built with</h3>
+          <ul class="chips"><li>Spring Cloud Gateway</li><li>Eureka</li><li>OpenFeign</li><li>Spring Data JPA</li><li>Maven</li></ul>
+          <p>Four services (registry, gateway, product, order) that can each be deployed on their own.</p>
+          <a href="#p-ecom">See the project →</a>
+        </aside>
+      </div>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="panel-jwt" aria-labelledby="tab-jwt" hidden>
+      <div class="how-grid">
+        <ol class="steps">
+          <li><div><strong>User signs in</strong><p>The React front end sends the credentials to the Spring Boot API.</p></div></li>
+          <li><div><strong>Password is checked</strong><p>Spring Security compares the password with its BCrypt hash. Plain passwords are never stored.</p></div></li>
+          <li><div><strong>API issues a JWT</strong><p>On success the API returns a signed token that identifies the user.</p></div></li>
+          <li><div><strong>Axios sends the token</strong><p>The front end attaches the token to its API calls, and protected routes keep signed-out users away from the board.</p></div></li>
+          <li><div><strong>Server stays stateless</strong><p>Each request is verified from its token, so the server keeps no session between calls.</p></div></li>
+          <li><div><strong>Ownership is checked</strong><p>The data layer enforces per-user ownership, so people only see their own projects and tasks.</p></div></li>
+        </ol>
+        <aside class="why">
+          <h3>Built with</h3>
+          <ul class="chips"><li>Spring Security</li><li>JWT</li><li>BCrypt</li><li>React (Vite)</li><li>Axios</li></ul>
+          <p>User, Project and Task models in Spring Data JPA and Hibernate, shown on a Kanban board.</p>
+          <a href="#p-taskflow">See the project →</a>
+        </aside>
+      </div>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="panel-layers" aria-labelledby="tab-layers" hidden>
+      <div class="how-grid">
+        <ol class="steps">
+          <li><div><strong>Controller</strong><p>Receives the HTTP request, validates input with Bean Validation and hands off to the service.</p></div></li>
+          <li><div><strong>Service</strong><p>Holds the business rules, such as enrollment logic, so they are not tangled with web code.</p></div></li>
+          <li><div><strong>Repository</strong><p>Spring Data JPA interfaces talk to the database. Hibernate maps one-to-many and many-to-many relationships.</p></div></li>
+          <li><div><strong>Database</strong><p>MySQL stores students, courses, enrollments and grades.</p></div></li>
+          <li><div><strong>Exception handling</strong><p>Errors are handled in one central place and returned in a consistent format.</p></div></li>
+        </ol>
+        <aside class="why">
+          <h3>Built with</h3>
+          <ul class="chips"><li>Spring Boot</li><li>Spring Security</li><li>Hibernate</li><li>MySQL</li><li>Swagger</li><li>Docker</li></ul>
+          <p>ADMIN and STUDENT roles, a multi-stage Dockerfile, and a deployment on Render with Docker Compose.</p>
+          <a href="#p-scm">See the project →</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head">
+      <div class="label">Toolbox</div>
+      <h2>Skills, with the projects that prove them</h2>
+    </div>
+    <div class="skills">
+      <div>
+        <h3>Backend</h3>
+        <ul>
+          <li>Java and Spring Boot<span class="used">Used in <a href="#p-ecom">E-Commerce</a>, <a href="#p-scm">Student Course</a>, <a href="#p-taskflow">TaskFlow</a></span></li>
+          <li>Spring Data JPA and Hibernate<span class="used">Used in <a href="#p-ecom">E-Commerce</a>, <a href="#p-scm">Student Course</a>, <a href="#p-taskflow">TaskFlow</a></span></li>
+          <li>RESTful API design<span class="used">Layered controller, service, repository code in <a href="#p-ecom">E-Commerce</a> and <a href="#p-scm">Student Course</a></span></li>
+          <li>JUnit<span class="used"><code>@DataJpaTest</code> repository tests in <a href="#p-scm">Student Course</a></span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Microservices and security</h3>
+        <ul>
+          <li>Eureka, Spring Cloud Gateway, OpenFeign<span class="used">Used in <a href="#p-ecom">E-Commerce</a></span></li>
+          <li>JWT and BCrypt<span class="used">Used in <a href="#p-taskflow">TaskFlow</a></span></li>
+          <li>Spring Security and role-based access<span class="used">ADMIN and STUDENT roles in <a href="#p-scm">Student Course</a></span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Frontend</h3>
+        <ul>
+          <li>JavaScript, HTML, CSS<span class="used">Daily work during the V Square Tech internship, see <a href="#timeline">Timeline</a></span></li>
+          <li>React, Vite, Axios<span class="used">Kanban board in <a href="#p-taskflow">TaskFlow</a></span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Data and delivery</h3>
+        <ul>
+          <li>MySQL<span class="used">Used in <a href="#p-scm">Student Course</a> and <a href="#p-taskflow">TaskFlow</a></span></li>
+          <li>Docker and Docker Compose<span class="used">Used in <a href="#p-ecom">E-Commerce</a>, <a href="#p-scm">Student Course</a>, <a href="#p-taskflow">TaskFlow</a></span></li>
+          <li>Maven and Git<span class="used">Multi-module build in <a href="#p-ecom">E-Commerce</a></span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="also">Also comfortable with Node.js, Flask, SQL, PostgreSQL, Postman, Eclipse and VS Code.</p>
+  </section>
+
+  <section id="fit">
+    <div class="sec-head">
+      <div class="label">For recruiters</div>
+      <h2>Check how a job description fits my stack</h2>
+    </div>
+    <div class="fit">
+      <div class="field">
+        <label for="jd">Paste a job description</label>
+        <textarea id="jd" rows="10" spellcheck="false">Associate Java Developer
+
+You will build REST APIs with Java and Spring Boot, work with Hibernate / JPA and MySQL, containerise services with Docker and help move a monolith to microservices.
+
+Nice to have: React, JUnit, AWS, Kubernetes, CI/CD with Jenkins.</textarea>
+        <span class="hint">A sample posting is loaded. Replace it with your own. Nothing you paste leaves this page.</span>
+      </div>
+      <div class="fit-out" aria-live="polite">
+        <div class="score-row">
+          <div class="score" id="score">0%</div>
+          <div><b id="verdict"></b><small id="verdict-sub"></small><div class="meter"><i id="meter"></i></div></div>
+        </div>
+        <h3>On my resume</h3>
+        <ul class="chips" id="hits"></ul>
+        <h3>Not on my resume yet</h3>
+        <ul class="chips" id="misses"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="terminal">
+    <div class="sec-head">
+      <div class="label">For fun</div>
+      <h2>Ask me in a terminal</h2>
+    </div>
+    <div class="term">
+      <div class="term-bar">shanmukh@portfolio ~ %</div>
+      <div class="term-out" id="term-out" role="log" aria-live="polite" tabindex="0"></div>
+      <div class="term-chips" id="term-chips"></div>
+      <form class="term-in" id="term-form" autocomplete="off">
+        <label for="term-input">$</label>
+        <input id="term-input" type="text" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Type a command and press Enter">
+      </form>
+    </div>
+  </section>
+
+  <section id="qa">
+    <div class="sec-head">
+      <div class="label">Interview prep</div>
+      <h2>Ask me about my projects</h2>
+    </div>
+    <div class="qa">
+      <details class="qcard">
+        <summary><span class="qtag">Microservices</span><span class="qq">Why did you split the e-commerce backend into services?</span></summary>
+        <div class="qa-body"><p>To practise real service boundaries. Registry, gateway, product and order are separate Spring Boot services that deploy independently. Eureka handles discovery, and Spring Cloud Gateway gives clients a single entry point.</p></div>
+      </details>
+      <details class="qcard">
+        <summary><span class="qtag">Microservices</span><span class="qq">How do your services talk to each other?</span></summary>
+        <div class="qa-body"><p>The order service calls the product service through OpenFeign to validate stock and pricing. Feign turns the call into a declared Java interface, and Eureka tells it where the product service is running.</p></div>
+      </details>
+      <details class="qcard">
+        <summary><span class="qtag">Security</span><span class="qq">How does authentication work in TaskFlow?</span></summary>
+        <div class="qa-body"><p>Stateless JWT with Spring Security. Passwords are hashed with BCrypt, the React app sends the token on each request, and the data layer checks that a user owns the project or task they ask for.</p></div>
+      </details>
+      <details class="qcard">
+        <summary><span class="qtag">Security</span><span class="qq">How did you handle roles in the Student Course system?</span></summary>
+        <div class="qa-body"><p>Spring Security enforces two roles, ADMIN and STUDENT, on the API. Request bodies are checked with Bean Validation, and Swagger documents the endpoints.</p></div>
+      </details>
+      <details class="qcard">
+        <summary><span class="qtag">Data</span><span class="qq">How did you model relationships between students and courses?</span></summary>
+        <div class="qa-body"><p>With Spring Data JPA and Hibernate. Students, courses and enrollments use one-to-many and many-to-many mappings, and Hibernate generates the schema in MySQL.</p></div>
+      </details>
+      <details class="qcard">
+        <summary><span class="qtag">Testing</span><span class="qq">How do you test your code?</span></summary>
+        <div class="qa-body"><p>I wrote repository layer tests with JUnit and <code>@DataJpaTest</code> in the Student Course project. They run against the JPA layer without starting the whole application.</p></div>
+      </details>
+      <details class="qcard">
+        <summary><span class="qtag">Deployment</span><span class="qq">How do you ship an app?</span></summary>
+        <div class="qa-body"><p>A multi-stage Dockerfile builds a small image, and Docker Compose runs the app with its database. I deployed Student Course Management to Render's free tier this way.</p></div>
+      </details>
+      <details class="qcard">
+        <summary><span class="qtag">Experience</span><span class="qq">What did you do at V Square Tech?</span></summary>
+        <div class="qa-body"><p>I was a Java Full Stack Development intern from Jan to May 2024. I built responsive web features, developed and debugged RESTful APIs, and connected front-end screens to the back end while working with senior engineers on code review.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <div class="sec-head">
+      <div class="label">Journey</div>
+      <h2>Timeline</h2>
+    </div>
+    <ol class="timeline">
+      <li class="now">
+        <div class="when">Now</div>
+        <h3>Building full stack projects and applying for roles</h3>
+        <p class="org">Junior and Associate Java / Full Stack Developer positions</p>
+      </li>
+      <li>
+        <div class="when">Jul 2024</div>
+        <h3>B.Tech in Electronics and Communication Engineering</h3>
+        <p class="org">Aditya Engineering College, Surampalem, Andhra Pradesh (Jul 2020 to Jul 2024)</p>
+      </li>
+      <li>
+        <div class="when">Jan 2024 to May 2024</div>
+        <h3>Java Full Stack Development Intern</h3>
+        <p class="org">V Square Tech, Hyderabad</p>
+        <ul>
+          <li>Built dynamic, responsive web features with JavaScript, HTML, CSS and Java-based frameworks in a full-stack team.</li>
+          <li>Developed and debugged RESTful APIs and connected front-end interfaces to back-end services.</li>
+          <li>Worked with senior engineers, which built my code review, debugging and teamwork skills.</li>
+        </ul>
+      </li>
+      <li>
+        <div class="when">Jul 2023 to Aug 2023</div>
+        <h3>Intern, Communication Systems</h3>
+        <p class="org">Hindustan Shipyard Limited, Visakhapatnam</p>
+        <ul>
+          <li>Trained on the internal and external communication systems used in maritime operations, and documented the technical workflows.</li>
+          <li>Helped report on how shipboard communication devices integrate with control systems.</li>
+        </ul>
+      </li>
+      <li>
+        <div class="when">Mar 2020</div>
+        <h3>Intermediate (MPC: Maths, Physics, Chemistry)</h3>
+        <p class="org">Sri Prakash Junior College, Payakaraopeta, Andhra Pradesh (Jun 2018 to Mar 2020)</p>
+      </li>
+    </ol>
+  </section>
+
+  <section id="resume">
+    <div class="sec-head">
+      <div class="label">At a glance</div>
+      <h2>Resume</h2>
+    </div>
+    <div class="resume-grid">
+      <div>
+        <h3>Summary</h3>
+        <p>Full stack developer with hands-on experience building scalable RESTful APIs and microservices using Java, Spring Boot, Spring Data JPA and Hibernate, integrated with React and JavaScript front ends and MySQL or PostgreSQL databases. Experienced in containerising applications with Docker and deploying them to the cloud. Solid grounding in CRUD design, authentication and role-based access control from independently built, enterprise-style projects.</p>
+        <div class="target"><b>Looking for:</b> Junior or Associate Full Stack or Java Developer roles.</div>
+      </div>
+      <div>
+        <h3>Certifications</h3>
+        <ul class="certs">
+          <li>Web Development Course<span>Udemy</span></li>
+          <li>Embedded Systems Certification<span>Electro Pro</span></li>
+          <li>IoT Certification<span>SkillDzire</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="schedule">
+    <div class="sec-head">
+      <div class="label">For hiring teams</div>
+      <h2>Schedule an interview or an assessment</h2>
+    </div>
+    <div class="sched">
+      <div>
+        <div class="form-grid">
+          <div class="field"><label for="f-type">What do you want to schedule?</label>
+            <select id="f-type"><option>Interview</option><option>Online assessment</option><option>Intro call</option></select></div>
+          <div class="field"><label for="f-role">Role</label><input id="f-role" type="text" placeholder="Associate Java Developer"></div>
+          <div class="field"><label for="f-name">Your name</label><input id="f-name" type="text" placeholder="Priya Sharma"></div>
+          <div class="field"><label for="f-company">Company</label><input id="f-company" type="text" placeholder="Acme Technologies"></div>
+          <div class="field"><label for="f-date">Date (your time zone)</label><input id="f-date" type="date"></div>
+          <div class="field"><label for="f-time">Time (your time zone)</label><input id="f-time" type="time"></div>
+        </div>
+        <div class="checkline" id="checkline" aria-live="polite"></div>
+      </div>
+
+      <div class="panel">
+        <h3>Reachable window</h3>
+        <div class="avail" aria-label="Days available"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span class="off">Sat</span><span class="off">Sun</span></div>
+        <p class="avail-line"><b>10:00 to 18:00 IST</b></p>
+        <p class="avail-sub" id="avail-local"></p>
+        <h3 style="margin-top: 22px;">Your message</h3>
+        <pre class="msg" id="msg"></pre>
+        <div class="msg-actions">
+          <button class="copy" id="copy-msg" type="button">Copy message</button>
+          <a id="mailto" href="#schedule">Open in email app</a>
+        </div>
+        <p class="msg-note">Nothing is sent from this page. Copy the message and send it to the email address under Contact. The email app link may not open for every viewer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="sec-head">
+      <div class="label">Get in touch</div>
+      <div>
+        <h2>Open to Junior and Associate Java / Full Stack roles</h2>
+        <div class="contact-box">
+          <div class="email-row">
+            <code id="email-text">saivenkatpinchingula@gmail.com</code>
+            <button class="copy" id="copy-btn" type="button">Copy email</button>
+          </div>
+          <div class="contact-links">
+            <a href="https://github.com/Shanmukh1817" target="_blank" rel="noopener">github.com/Shanmukh1817</a>
+            <a href="https://leetcode.com/shanmukh1817/" target="_blank" rel="noopener">leetcode.com/shanmukh1817</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Shanmukh Sai Venkat Pinchingula · Java Full Stack Developer</footer>
+</main>
+
+<script>
+(function () {
+  var root = document.documentElement;
+
+  /* theme toggle */
+  var themeBtn = document.getElementById("theme-btn");
+  function effective() {
+    var t = root.getAttribute("data-theme");
+    if (t === "dark" || t === "light") return t;
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  function paintThemeLabel() { themeBtn.textContent = effective() === "dark" ? "Light" : "Dark"; }
+  themeBtn.addEventListener("click", function () {
+    var next = effective() === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("portfolio-theme", next); } catch (e) {}
+    paintThemeLabel();
+  });
+  paintThemeLabel();
+
+  /* project filter */
+  var buttons = Array.prototype.slice.call(document.querySelectorAll(".filters button"));
+  var projects = Array.prototype.slice.call(document.querySelectorAll(".project"));
+  var countEl = document.getElementById("filter-count");
+  function applyFilter(key) {
+    var shown = 0;
+    projects.forEach(function (p) {
+      var tags = (p.getAttribute("data-tags") || "").split(" ");
+      var match = key === "all" || tags.indexOf(key) !== -1;
+      p.hidden = !match;
+      p.classList.remove("first-visible");
+      if (match) { shown++; if (shown === 1) p.classList.add("first-visible"); }
+    });
+    buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-filter") === key ? "true" : "false"); });
+    countEl.textContent = key === "all" ? "" : "Showing " + shown + " of " + projects.length;
+  }
+  buttons.forEach(function (b) { b.addEventListener("click", function () { applyFilter(b.getAttribute("data-filter")); }); });
+  applyFilter("all");
+
+  /* skill links jump to a project even when the filter hides it */
+  Array.prototype.slice.call(document.querySelectorAll('a[href^="#p-"]')).forEach(function (a) {
+    a.addEventListener("click", function () { applyFilter("all"); });
+  });
+
+
+  /* tabs */
+  var tabBtns = Array.prototype.slice.call(document.querySelectorAll(".tabs button"));
+  var tabPanels = Array.prototype.slice.call(document.querySelectorAll(".tabpanel"));
+  tabBtns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var id = b.getAttribute("data-tab");
+      tabBtns.forEach(function (x) { x.setAttribute("aria-selected", x === b ? "true" : "false"); });
+      tabPanels.forEach(function (pn) { pn.hidden = pn.id !== "panel-" + id; });
+    });
+  });
+  Array.prototype.slice.call(document.querySelectorAll('.why a[href^="#p-"]')).forEach(function (a) {
+    a.addEventListener("click", function () { applyFilter("all"); });
+  });
+
+  /* job description fit check */
+  var HAVE = [
+    ["Java", ["java"]], ["Spring Boot", ["spring boot", "springboot"]], ["Spring Security", ["spring security"]],
+    ["Spring Data JPA", ["spring data jpa", "spring data"]], ["Hibernate", ["hibernate"]], ["JPA", ["jpa"]],
+    ["REST APIs", ["restful", "rest api", "rest apis", "rest services"]], ["Microservices", ["microservices", "microservice"]],
+    ["Spring Cloud", ["spring cloud"]], ["Eureka", ["eureka"]], ["OpenFeign", ["openfeign", "feign"]],
+    ["JWT", ["jwt", "json web token"]], ["RBAC", ["rbac", "role-based access"]], ["React", ["react", "reactjs", "react.js"]],
+    ["JavaScript", ["javascript"]], ["HTML", ["html", "html5"]], ["CSS", ["css", "css3"]], ["SQL", ["sql"]],
+    ["MySQL", ["mysql"]], ["PostgreSQL", ["postgresql", "postgres"]], ["Docker", ["docker"]], ["Maven", ["maven"]],
+    ["Git", ["git", "github"]], ["JUnit", ["junit"]], ["Postman", ["postman"]], ["Node.js", ["node.js", "nodejs"]],
+    ["Flask", ["flask"]], ["Swagger / OpenAPI", ["swagger", "openapi"]]
+  ];
+  var GAPS = [
+    ["AWS", ["aws", "amazon web services"]], ["Azure", ["azure"]], ["GCP", ["gcp", "google cloud"]],
+    ["Kubernetes", ["kubernetes", "k8s"]], ["Kafka", ["kafka"]], ["RabbitMQ", ["rabbitmq"]], ["Jenkins", ["jenkins"]],
+    ["CI/CD", ["ci/cd", "cicd"]], ["Redis", ["redis"]], ["MongoDB", ["mongodb"]], ["Angular", ["angular"]],
+    ["TypeScript", ["typescript"]], ["Terraform", ["terraform"]], ["GraphQL", ["graphql"]], ["Python", ["python"]]
+  ];
+  function esc(x) { return x.replace(/[.*+?^${}()|[\]\\\/]/g, "\\$&"); }
+  function found(text, terms) {
+    return terms.some(function (t) { return new RegExp("(^|[^a-z0-9+#])" + esc(t) + "(?![a-z0-9+#])").test(text); });
+  }
+  var jd = document.getElementById("jd");
+  function fillChips(el, arr, cls) {
+    el.textContent = "";
+    if (!arr.length) { var n = document.createElement("li"); n.className = "none"; n.textContent = "None found in this posting"; el.appendChild(n); return; }
+    arr.forEach(function (name) { var li = document.createElement("li"); if (cls) li.className = cls; li.textContent = name; el.appendChild(li); });
+  }
+  function runFit() {
+    var text = jd.value.toLowerCase(), hits = [], miss = [];
+    HAVE.forEach(function (x) { if (found(text, x[1])) hits.push(x[0]); });
+    GAPS.forEach(function (x) { if (found(text, x[1])) miss.push(x[0]); });
+    var total = hits.length + miss.length;
+    var scoreEl = document.getElementById("score"), meter = document.getElementById("meter");
+    fillChips(document.getElementById("hits"), hits, "");
+    fillChips(document.getElementById("misses"), miss, "miss");
+    if (!total) {
+      scoreEl.textContent = "--";
+      document.getElementById("verdict").textContent = "Paste a job description";
+      document.getElementById("verdict-sub").textContent = "I look for the technologies named in it.";
+      meter.style.width = "0%"; return;
+    }
+    var pct = Math.round(hits.length / total * 100);
+    scoreEl.textContent = pct + "%";
+    document.getElementById("verdict").textContent = pct >= 70 ? "Strong overlap with my stack" : pct >= 40 ? "Partial overlap with my stack" : "Limited overlap with my stack";
+    document.getElementById("verdict-sub").textContent = hits.length + " of " + total + " technologies in this posting are on my resume.";
+    meter.style.width = pct + "%";
+  }
+  jd.addEventListener("input", runFit);
+  runFit();
+
+  /* terminal */
+  var out = document.getElementById("term-out");
+  var tin = document.getElementById("term-input");
+  var history = [], hpos = 0;
+  function line(parts, cls) {
+    var d = document.createElement("div"); d.className = "ln" + (cls ? " " + cls : "");
+    (Array.isArray(parts) ? parts : [parts]).forEach(function (pt) {
+      if (typeof pt === "string") { d.appendChild(document.createTextNode(pt)); }
+      else if (pt.href) { var a = document.createElement("a"); a.href = pt.href; a.textContent = pt.t; if (pt.href.charAt(0) !== "#") { a.target = "_blank"; a.rel = "noopener"; } d.appendChild(a); }
+      else { var sp = document.createElement("span"); sp.className = pt.c; sp.textContent = pt.t; d.appendChild(sp); }
+    });
+    out.appendChild(d);
+  }
+  function lines(arr) { arr.forEach(function (l) { line(l); }); }
+  var CMDS = {
+    help: function () { lines([
+      "Commands:",
+      [{ c: "hl", t: "whoami" }, "      who I am"],
+      [{ c: "hl", t: "about" }, "       short summary"],
+      [{ c: "hl", t: "skills" }, "      my stack"],
+      [{ c: "hl", t: "projects" }, "    what I have built"],
+      [{ c: "hl", t: "experience" }, "  internships"],
+      [{ c: "hl", t: "education" }, "   studies"],
+      [{ c: "hl", t: "contact" }, "     how to reach me"],
+      [{ c: "hl", t: "ls" }, "          sections of this site"],
+      [{ c: "hl", t: "theme" }, "       switch light and dark"],
+      [{ c: "hl", t: "clear" }, "       clear the screen"]
+    ]); },
+    whoami: function () { lines([
+      "Shanmukh Sai Venkat Pinchingula",
+      "Java Full Stack Developer",
+      [{ c: "dim", t: "Spring Boot · Microservices · React · Docker" }],
+      "Open to Junior and Associate roles."
+    ]); },
+    about: function () { lines([
+      "I build RESTful APIs and microservices with Java, Spring Boot,",
+      "Spring Data JPA and Hibernate, connect them to React front ends and",
+      "MySQL or PostgreSQL, and package them with Docker."
+    ]); },
+    skills: function () { lines([
+      [{ c: "hl", t: "backend       " }, "Java, Spring Boot, Spring Security, Spring Data JPA, Hibernate, JUnit"],
+      [{ c: "hl", t: "microservices " }, "Eureka, Spring Cloud Gateway, OpenFeign"],
+      [{ c: "hl", t: "frontend      " }, "React, Vite, JavaScript, HTML, CSS"],
+      [{ c: "hl", t: "data          " }, "MySQL, PostgreSQL, SQL"],
+      [{ c: "hl", t: "tools         " }, "Docker, Maven, Git, Postman, Eclipse, VS Code"]
+    ]); },
+    projects: function () { lines([
+      ["1. ", { href: "#p-ecom", t: "E-Commerce Microservices Platform" }],
+      [{ c: "dim", t: "   four Spring Boot services, Eureka, Gateway, OpenFeign" }],
+      ["2. ", { href: "#p-scm", t: "Student Course Management System" }],
+      [{ c: "dim", t: "   Spring Security roles, MySQL, Docker, Swagger" }],
+      ["3. ", { href: "#p-taskflow", t: "TaskFlow" }],
+      [{ c: "dim", t: "   Spring Boot + React Kanban board with JWT" }]
+    ]); },
+    experience: function () { lines([
+      "Java Full Stack Development Intern, V Square Tech (Jan to May 2024)",
+      "Intern, Communication Systems, Hindustan Shipyard Limited (Jul to Aug 2023)"
+    ]); },
+    education: function () { lines([
+      "B.Tech, Electronics and Communication Engineering, Aditya Engineering College (2020 to 2024)",
+      "Intermediate (MPC), Sri Prakash Junior College (2018 to 2020)"
+    ]); },
+    contact: function () { lines([
+      "saivenkatpinchingula@gmail.com",
+      [{ href: "https://github.com/Shanmukh1817", t: "github.com/Shanmukh1817" }],
+      [{ href: "https://leetcode.com/shanmukh1817/", t: "leetcode.com/shanmukh1817" }],
+      ["Or ", { href: "#schedule", t: "schedule a time" }, " from this page."]
+    ]); },
+    ls: function () { lines([
+      [{ href: "#projects", t: "projects/" }, "  ", { href: "#how", t: "how-it-works/" }, "  ", { href: "#skills", t: "skills/" }, "  ", { href: "#fit", t: "fit-check/" }],
+      [{ href: "#qa", t: "qa/" }, "  ", { href: "#timeline", t: "timeline/" }, "  ", { href: "#resume", t: "resume/" }, "  ", { href: "#schedule", t: "schedule/" }]
+    ]); },
+    theme: function () { themeBtn.click(); line("Theme switched.", "dim"); },
+    clear: function () { out.textContent = ""; }
+  };
+  function run(raw) {
+    var c = raw.trim(), key = c.toLowerCase();
+    if (!c) return;
+    line([{ c: "cmd", t: "$ " }, c]);
+    if (key === "sudo hire shanmukh") {
+      lines([[{ c: "cmd", t: "Permission granted." }], "Opening the scheduler..."]);
+      setTimeout(function () { var s = document.getElementById("schedule"); if (s && s.scrollIntoView) s.scrollIntoView(); }, 600);
+    } else if (CMDS[key]) { CMDS[key](); }
+    else { line("command not found: " + c + ". Type help.", "dim"); }
+    out.scrollTop = out.scrollHeight;
+  }
+  document.getElementById("term-form").addEventListener("submit", function (e) {
+    e.preventDefault(); var v = tin.value; tin.value = "";
+    if (v.trim()) { history.push(v); hpos = history.length; }
+    run(v);
+  });
+  tin.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowUp" && history.length) { e.preventDefault(); hpos = Math.max(0, hpos - 1); tin.value = history[hpos] || ""; }
+    else if (e.key === "ArrowDown") { e.preventDefault(); hpos = Math.min(history.length, hpos + 1); tin.value = history[hpos] || ""; }
+  });
+  var chipBox = document.getElementById("term-chips");
+  ["help", "whoami", "skills", "projects", "experience", "contact", "sudo hire shanmukh"].forEach(function (c) {
+    var b = document.createElement("button"); b.type = "button"; b.className = "tchip"; b.textContent = c;
+    b.addEventListener("click", function () { run(c); });
+    chipBox.appendChild(b);
+  });
+  line("Welcome. Type help, or tap a command below.", "dim");
+  run("whoami");
+
+  /* scheduler */
+  var fType = document.getElementById("f-type"), fRole = document.getElementById("f-role"), fName = document.getElementById("f-name"),
+      fCompany = document.getElementById("f-company"), fDate = document.getElementById("f-date"), fTime = document.getElementById("f-time");
+  var msgEl = document.getElementById("msg"), checkEl = document.getElementById("checkline"), mailEl = document.getElementById("mailto");
+  var IST = 5.5 * 3600e3, DAY = 864e5;
+  var tz = "your time zone";
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || tz; } catch (e) {}
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function fmtLocal(d) {
+    try { return d.toLocaleString(undefined, { weekday: "short", day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }); }
+    catch (e) { return d.toString(); }
+  }
+  var MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  function fmtIST(d) {
+    var s = new Date(d.getTime() + IST);
+    return DOW[s.getUTCDay()] + ", " + s.getUTCDate() + " " + MON[s.getUTCMonth()] + " " + s.getUTCFullYear() + ", " + pad(s.getUTCHours()) + ":" + pad(s.getUTCMinutes());
+  }
+  function defaultSlot() {
+    var d = new Date(Date.now() + IST + DAY);
+    while (d.getUTCDay() === 0 || d.getUTCDay() === 6) d = new Date(d.getTime() + DAY);
+    return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 5, 30));
+  }
+  var slot = defaultSlot();
+  fDate.value = slot.getFullYear() + "-" + pad(slot.getMonth() + 1) + "-" + pad(slot.getDate());
+  fTime.value = pad(slot.getHours()) + ":" + pad(slot.getMinutes());
+
+  function localWindow() {
+    var n = new Date(), y = n.getUTCFullYear(), m = n.getUTCMonth(), dd = n.getUTCDate();
+    var a = new Date(Date.UTC(y, m, dd, 4, 30)), b = new Date(Date.UTC(y, m, dd, 12, 30));
+    function t(x) { try { return x.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }); } catch (e) { return pad(x.getHours()) + ":" + pad(x.getMinutes()); } }
+    document.getElementById("avail-local").textContent = "In your time zone (" + tz + "): " + t(a) + " to " + t(b);
+  }
+  localWindow();
+
+  function updateSched() {
+    var type = fType.value, role = fRole.value.trim() || "[role]", name = fName.value.trim() || "[your name]", company = fCompany.value.trim() || "[company]";
+    var dv = fDate.value, tv = fTime.value, when = null;
+    if (dv && tv) {
+      var dp = dv.split("-"), tp = tv.split(":");
+      when = new Date(+dp[0], +dp[1] - 1, +dp[2], +tp[0], +tp[1]);
+      if (isNaN(when.getTime())) when = null;
+    }
+    var body;
+    if (!when) {
+      checkEl.className = "checkline warn"; checkEl.textContent = "Pick a date and a time to see it in IST.";
+      body = "Hi Shanmukh,\n\nThis is " + name + " from " + company + ". We would like to schedule an " + type.toLowerCase() + " for the " + role + " role.\n\nPlease reply with a time that suits you.\n\nRegards,\n" + name;
+    } else {
+      var s = new Date(when.getTime() + IST), mins = s.getUTCHours() * 60 + s.getUTCMinutes(), wd = s.getUTCDay();
+      var inside = wd >= 1 && wd <= 5 && mins >= 600 && mins <= 1080;
+      if (when.getTime() < Date.now()) { checkEl.className = "checkline warn"; checkEl.textContent = "That time has already passed. Pick a later one."; }
+      else if (inside) { checkEl.className = "checkline"; checkEl.textContent = "That is " + fmtIST(when) + " IST, inside the reachable window."; }
+      else { checkEl.className = "checkline warn"; checkEl.textContent = "That is " + fmtIST(when) + " IST, outside the usual 10:00 to 18:00 IST weekday window. You can still send the request."; }
+      body = "Hi Shanmukh,\n\nThis is " + name + " from " + company + ". We would like to schedule an " + type.toLowerCase() + " for the " + role + " role.\n\nProposed time: " + fmtLocal(when) + " (" + tz + ")\nThat is " + fmtIST(when) + " IST.\n\nPlease confirm, or reply with a time that suits you better.\n\nRegards,\n" + name;
+    }
+    body = body.replace("an interview", "an interview").replace("an online assessment", "an online assessment").replace("an intro call", "an intro call");
+    msgEl.textContent = body;
+    mailEl.href = "mailto:saivenkatpinchingula@gmail.com?subject=" + encodeURIComponent(type + " for " + role) + "&body=" + encodeURIComponent(body);
+  }
+  [fType, fRole, fName, fCompany, fDate, fTime].forEach(function (el) { el.addEventListener("input", updateSched); el.addEventListener("change", updateSched); });
+  updateSched();
+  var copyMsg = document.getElementById("copy-msg");
+  copyMsg.addEventListener("click", function () {
+    function done() { copyMsg.textContent = "Copied"; copyMsg.classList.add("done"); setTimeout(function () { copyMsg.textContent = "Copy message"; copyMsg.classList.remove("done"); }, 1800); }
+    function sel() { var r = document.createRange(); r.selectNodeContents(msgEl); var sl = window.getSelection(); sl.removeAllRanges(); sl.addRange(r); copyMsg.textContent = "Press Ctrl+C"; }
+    try { navigator.clipboard.writeText(msgEl.textContent).then(done, sel); } catch (e) { sel(); }
+  });
+
+  /* copy email */
+  var copyBtn = document.getElementById("copy-btn");
+  var emailEl = document.getElementById("email-text");
+  function selectEmail() {
+    var r = document.createRange(); r.selectNodeContents(emailEl);
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+  copyBtn.addEventListener("click", function () {
+    var text = emailEl.textContent.trim();
+    function done() { copyBtn.textContent = "Copied"; copyBtn.classList.add("done"); setTimeout(function () { copyBtn.textContent = "Copy email"; copyBtn.classList.remove("done"); }, 1800); }
+    try {
+      navigator.clipboard.writeText(text).then(done, function () { selectEmail(); copyBtn.textContent = "Press Ctrl+C"; });
+    } catch (e) { selectEmail(); copyBtn.textContent = "Press Ctrl+C"; }
+  });
+})();
+</script>
+
+</body>
+</html>
